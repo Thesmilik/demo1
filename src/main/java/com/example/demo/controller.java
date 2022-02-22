@@ -1,22 +1,20 @@
 package com.example.demo;
 
-
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
 @RestController
 public class controller {
 
+    private List<Book> books;
 
-    List<Book> books;
-    public controller(){
+    private BookService bookService;
+
+    public controller(BookService bookService){
         this.books = init();
+        this.bookService = bookService;
     }
 
     public List<Book> init( ){
@@ -34,9 +32,7 @@ public class controller {
         return books;
 
     }
-
-    @GetMapping("/api/books")
-    public List<Book> getBooks(@RequestParam(required = false) String bookAutor) {
+    public List<Book> getBooks(String bookAutor) {
 
          List<Book> filteredBooks = new ArrayList<>();
 
@@ -46,12 +42,10 @@ public class controller {
              }
          }
 
-
-
          return this.books;
     }
-    @GetMapping("/api/books/{bookId}")
-    public Book getBook(@PathVariable Integer bookId) {
+
+    public Book getBook(Integer bookId) {
         return this.books.get(bookId);
     }
 }
