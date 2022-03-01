@@ -1,10 +1,7 @@
 package com.example.demo;
 
-
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +34,7 @@ public class BookService {
     }
 
     @GetMapping("/api/books")
-    public List<Book> getBooks(@RequestParam(required = false) String bookAutor) {
+    public List<Book> getBooks(String bookAutor) {
 
         List<Book> filteredBooks = new ArrayList<>();
 
@@ -52,7 +49,7 @@ public class BookService {
         return this.books;
     }
     @GetMapping("/api/books/{bookId}")
-    public Book getBook(@PathVariable Integer bookId) {
+    public Book getBook(Integer bookId) {
         return this.books.get(bookId);
     }
 
